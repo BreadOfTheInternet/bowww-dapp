@@ -11,21 +11,17 @@ const abi = [
 let provider, signer, contract, userAddress;
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelector("button[onclick='buy()']").disabled = true;
+  const buyBtn = document.querySelector("button[onclick='buy()']");
+  buyBtn.disabled = true;
 
-  if (typeof window.ethereum !== 'undefined') {
-    ethereum.request({ method: "eth_accounts" })
-      .then(accounts => {
-        if (accounts.length > 0) {
-          connect();
-        }
-      });
+  if (!window.ethereum) {
+    document.getElementById("status").innerHTML = "❌ MetaMask not detected. Please install the extension.";
   }
 });
 
 async function connect() {
-  if (typeof window.ethereum === 'undefined') {
-    alert("MetaMask not detected. Please install MetaMask extension.");
+  if (!window.ethereum) {
+    alert("MetaMask not found. Please install MetaMask extension.");
     return;
   }
 
@@ -44,9 +40,13 @@ async function connect() {
     document.getElementById("rate-info").innerText =
       `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
   } catch (err) {
-    console.error(err);
-    document.getElementById("status").innerText =
-      "❌ Connection failed. Please ensure MetaMask is unlocked and reload.";
+    console.error("Connection Error:", err);
+    if (err.code === 4001) {
+      document.getElementById("status").innerText = "❌ User rejected connection.";
+    } else {
+      document.getElementById("status").innerText =
+        "❌ Connection failed. Make sure MetaMask is unlocked and try again.";
+    }
   }
 }
 
@@ -68,10 +68,11 @@ async function buy() {
     document.getElementById("status").innerHTML =
       `✅ Transaction Confirmed! <a href='https://polygonscan.com/tx/${tx.hash}' target='_blank'>View on Polygonscan</a>`;
   } catch (err) {
-    console.error(err);
+    console.error("Transaction Error:", err);
     document.getElementById("status").innerText =
-      "❌ Transaction Failed: " + err.message;
+      "❌ Transaction Failed: " + (err.message || "Unknown error");
   }
 }
+
 
 
