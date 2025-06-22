@@ -1,50 +1,48 @@
-const contractAddress = "0x284414b6777872E6DD8982394Fed1779dc87a3Cf"; // BowwwSwap contract
-const abi = [
-  "function buyBowww() payable",
-  "function rate() view returns (uint)",
-  "function withdrawMatic()",
-  "function withdrawTokens()",
-  "function updateRate(uint newRate)",
-  "function bowwwToken() view returns (address)"
-];
-
-let provider, signer, contract;
+const contractAddress = "0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0";
 
 async function connect() {
-  if (window.ethereum) {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    contract = new ethers.Contract(contractAddress, abi, signer);
-    document.getElementById("status").innerText = "✅ Wallet connected.";
+  if (typeof window.ethereum !== 'undefined') {
+    try {
+      await ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const network = await provider.getNetwork();
+
+      if (network.chainId !== 137) {
+        alert("Please switch to the Polygon Mainnet (chainId: 137)");
+      } else {
+        alert("Wallet connected!");
+      }
+    } catch (error) {
+      console.error("User rejected the request:", error);
+    }
   } else {
-    alert("Please install MetaMask to use this dApp.");
+    alert("MetaMask is not installed!");
   }
 }
 
 async function buy() {
-  const amount = document.getElementById("amount").value;
-  if (!amount || !signer) {
-    alert("Please enter a MATIC amount and connect wallet.");
+  const amountInput = document.getElementById("amount").value;
+  if (!amountInput || isNaN(amountInput) || Number(amountInput) <= 0) {
+    alert("Please enter a valid MATIC amount");
+    return;
+  }
+
+  if (typeof window.ethereum === 'undefined') {
+    alert("Please install MetaMask first!");
     return;
   }
 
   try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
     const tx = await signer.sendTransaction({
       to: contractAddress,
-      value: ethers.utils.parseEther(amount)
+      value: ethers.utils.parseEther(amountInput),
     });
 
-    document.getElementById("status").innerText = "✅ Transaction sent. Waiting for confirmation...";
-    await tx.wait();
-
-    const txHash = tx.hash;
-    document.getElementById("status").innerHTML = `
-      ✅ Transaction successful!<br>
-      <a href="https://polygonscan.com/tx/${txHash}" target="_blank">View on Polygonscan</a>
-    `;
+    alert(`Transaction sent! Hash:\n${tx.hash}`);
   } catch (err) {
     console.error(err);
-    document.getElementById("status").innerText = "❌ Error: " + (err.message || "Transaction failed");
+    alert("Transaction failed. Check console for details.");
   }
 }
