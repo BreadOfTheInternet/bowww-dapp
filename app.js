@@ -20,18 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
           connect();
         }
       });
+  } else {
+    document.getElementById("status").innerText = "❌ MetaMask not detected.";
   }
 });
 
 async function connect() {
   if (typeof window.ethereum === 'undefined') {
-    alert("MetaMask not detected. Please install MetaMask extension.");
+    alert("❌ MetaMask not detected. Please install MetaMask and avoid Incognito.");
     return;
   }
 
   try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    if (!accounts || accounts.length === 0) {
+      throw new Error("No accounts returned from MetaMask.");
+    }
+
     provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
@@ -46,7 +52,7 @@ async function connect() {
   } catch (err) {
     console.error(err);
     document.getElementById("status").innerText =
-      "❌ Connection failed. Please ensure MetaMask is unlocked and reload.";
+      "❌ Wallet connection failed: " + err.message;
   }
 }
 
