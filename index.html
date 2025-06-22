@@ -8,52 +8,37 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
       background-color: #FFD141;
-      color: #250045;
+      font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
     }
 
-    .container {
+    .box {
       background: white;
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 90%;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       text-align: center;
+      width: 90%;
+      max-width: 400px;
     }
 
-    header img {
-      height: 80px;
-      margin: 0.5rem;
+    .box p {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
     }
 
-    h1 {
-      margin-top: 1rem;
-      font-size: 2rem;
-    }
-
-    .info {
-      margin: 1.5rem 0;
+    input[type="number"] {
+      padding: 0.7rem;
       font-size: 1rem;
-      color: #333;
-    }
-
-    .info p {
-      margin: 0.5rem 0;
-    }
-
-    .form input[type="number"] {
-      padding: 0.5rem;
-      width: 80%;
-      font-size: 1rem;
+      width: 100%;
       margin: 1rem 0;
-      border-radius: 5px;
       border: 1px solid #ccc;
+      border-radius: 8px;
       text-align: center;
     }
 
@@ -61,63 +46,28 @@
       background-color: #6a0dad;
       color: white;
       border: none;
-      padding: 0.7rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
+      margin-bottom: 1rem;
     }
 
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #666;
-    }
-
-    a {
-      color: #6a0dad;
+    button:hover {
+      background-color: #5500aa;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="logo.png" alt="$BOWWW Logo">
-      <img src="polygon.png" alt="Polygon Logo">
-    </header>
-
-    <h1>Buy $BOWWW with MATIC</h1>
-    <p><strong>1 MATIC = 369 BOWWW</strong></p>
-
-    <div class="form">
-      <button onclick="connect()">Connect Wallet</button><br>
-      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
-      <button onclick="buy()">Buy $BOWWW</button>
-    </div>
-
-    <div class="info">
-      <h3>📜 About This dApp</h3>
-      <p><strong>What is $BOWWW?</strong><br>
-        Bread Of the Internet Coin – a fun, community-powered meme coin.</p>
-      <p><strong>Total Supply:</strong> 3,600,900,000</p>
-      <p><strong>Contract:</strong> 
-        <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
-          0x046F...A0
-        </a>
-      </p>
-      <p><strong>Chain:</strong> Polygon (MATIC)</p>
-      <p><strong>Buy/Sell:</strong> 
-        <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, 
-        <a href="https://app.sushi.com/" target="_blank">SushiSwap</a>
-      </p>
-    </div>
-
-    <footer>
-      Powered by Ethereum smart contracts & IPFS<br>
-      This is the official $BOWWW decentralized purchase dApp.
-    </footer>
+  <div class="box">
+    <p>1 MATIC = 369 BOWWW</p>
+    <button onclick="connect()">Connect Wallet</button><br>
+    <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
+    <button onclick="buy()">Buy $BOWWW</button>
   </div>
 
   <script src="app.js"></script>
 </body>
 </html>
+
 
