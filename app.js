@@ -1,36 +1,68 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const connectBtn = document.getElementById('connect-btn');
-  const status = document.getElementById('status');
+// ==== CONFIG ====
+const CONTRACT_ADDRESS = "0x284414b6777872E6dD8982394Fed1779dc87a3cF"; // your token contract (payable via receive())
+const RATE = 369; // 1 MATIC = 369 BOWWW
 
-  connectBtn.addEventListener('click', async () => {
-    // Clear any previous status
-    status.textContent = 'Connecting…';
+// ==== ELEMENTS ====
+const connectBtn = document.getElementById("connect-btn");
+const buyBtn     = document.getElementById("buy-btn");
+const amountIn   = document.getElementById("amount-input");
+const walletStat = document.getElementById("wallet-status");
+const status     = document.getElementById("status");
 
-    // Check for MetaMask / window.ethereum
-    if (typeof window.ethereum === 'undefined') {
-      status.textContent = '❌ MetaMask not detected. Please install it.';
-      return;
-    }
+let provider, signer;
 
-    try {
-      // Prompt user to connect their wallet
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send('eth_requestAccounts', []); 
-      const signer = provider.getSigner();
+// ---- Connect Wallet ----
+connectBtn.onclick = async () => {
+  status.textContent = "";
+  if (!window.ethereum) {
+    status.textContent = "❌ MetaMask not detected.";
+    return;
+  }
 
-      // Get the connected address
-      const address = await signer.getAddress();
-      status.textContent = `✅ Connected: ${address}`;
+  try {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    // request account access
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    const address = await signer.getAddress();
 
-      // (Optional) Lock the button so they don't click twice
-      connectBtn.disabled = true;
-      connectBtn.textContent = 'Connected';
+    walletStat.textContent = `Connected: ${address.slice(0,6)}…${address.slice(-4)}`;
+    walletStat.style.color = "green";
+    connectBtn.disabled = true;
+    connectBtn.textContent = "Connected";
 
-    } catch (err) {
-      console.error(err);
-      status.textContent = `❌ Connection failed: ${err.message}`;
-    }
-  });
-});
+    // enable buy flow
+    amountIn.disabled = false;
+    buyBtn.disabled   = false;
+  } catch (err) {
+    console.error(err);
+    status.textContent = "❌ Connection failed: " + (err.message || err);
+  }
+};
+
+// ---- Buy Logic ----
+buyBtn.onclick = async () => {
+  status.textContent = "";
+  const amt = amountIn.value;
+  if (!amt || isNaN(amt) || Number(amt) <= 0) {
+    status.textContent = "❌ Enter a valid amount.";
+    return;
+  }
+
+  try {
+    const value = ethers.utils.parseEther(amt);
+    status.textContent = "⏳ Sending transaction…";
+    const tx = await signer.sendTransaction({
+      to: CONTRACT_ADDRESS,
+      value
+    });
+    await tx.wait();
+    status.innerHTML = `✅ Success! <a href="https://polygonscan.com/tx/${tx.hash}" target="_blank">View Tx</a>`;
+  } catch (err) {
+    console.error(err);
+    status.textContent = `❌ Tx failed: ${err.message}`;
+  }
+};
+
 
 
