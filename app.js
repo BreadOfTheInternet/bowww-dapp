@@ -11,42 +11,36 @@ const abi = [
 let provider, signer, contract, userAddress;
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("MetaMask available?", typeof window.ethereum !== "undefined");
   document.querySelector("button[onclick='buy()']").disabled = true;
 
-  if (typeof window.ethereum !== 'undefined') {
-    ethereum.request({ method: "eth_accounts" })
-      .then(accounts => {
-        if (accounts.length > 0) {
-          connect();
-        }
-      });
+  if (!window.ethereum) {
+    document.getElementById("status").innerHTML = "❌ MetaMask not detected. Please install MetaMask.";
   }
 });
 
 async function connect() {
-  if (typeof window.ethereum === 'undefined') {
-    alert("MetaMask not detected. Please install MetaMask extension.");
-    return;
-  }
-
   try {
+    if (typeof window.ethereum === "undefined") {
+      throw new Error("MetaMask is not installed");
+    }
+
     provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
-    document.getElementById("status").innerHTML =
-      `✅ Connected: <span style="font-size: 0.9rem">${userAddress}</span>`;
+    const currentRate = await contract.rate();
+    document.getElementById("status").innerHTML = `✅ Connected: ${userAddress}`;
+    document.getElementById("rate-info").innerText = `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
     document.querySelector("button[onclick='buy()']").disabled = false;
 
-    const currentRate = await contract.rate();
-    document.getElementById("rate-info").innerText =
-      `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
+    console.log("Wallet connected:", userAddress);
   } catch (err) {
-    console.error(err);
+    console.error("Connection error:", err);
     document.getElementById("status").innerText =
-      "❌ Connection failed. Please ensure MetaMask is unlocked and reload.";
+      "❌ " + (err.message || "Connection failed. Please unlock MetaMask.");
   }
 }
 
@@ -68,11 +62,22 @@ async function buy() {
     document.getElementById("status").innerHTML =
       `✅ Transaction Confirmed! <a href='https://polygonscan.com/tx/${tx.hash}' target='_blank'>View on Polygonscan</a>`;
   } catch (err) {
-    console.error(err);
+    console.error("Transaction error:", err);
     document.getElementById("status").innerText =
-      "❌ Transaction Failed: " + err.message;
+      "❌ Transaction Failed: " + (err.message || "Unknown error");
   }
 }
 
+function launchInMetaMask() {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const dappURL = "breadoftheinternet.github.io/bowww-dapp/";
+  const fullLink = "https://metamask.app.link/dapp/" + dappURL;
+
+  if (isMobile) {
+    window.location.href = fullLink;
+  } else {
+    alert("This only works in the MetaMask mobile browser.");
+  }
+}
 
 
