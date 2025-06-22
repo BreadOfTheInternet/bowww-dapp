@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Buy $BOWWW</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <style>
@@ -11,34 +12,23 @@
       font-family: 'Montserrat', sans-serif;
       background-color: #FFD141;
       color: #250045;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .logo-row {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .logo-row img {
-      height: 100px;
-      max-width: 45%;
-    }
-
-    .info-section {
       text-align: center;
-      max-width: 600px;
-      margin: 30px auto 10px;
-      font-size: 1rem;
-      padding: 0 1rem;
     }
 
-    .info-section a {
-      color: #6a0dad;
-      text-decoration: none;
+    .logo-bar {
+      padding-top: 2rem;
+    }
+
+    .logo-bar img {
+      height: 100px;
+      margin: 0 1rem;
+    }
+
+    .info-box {
+      margin: 2rem auto 1rem;
+      max-width: 700px;
+      font-size: 1rem;
+      color: #250045;
     }
 
     .container {
@@ -48,16 +38,15 @@
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
       max-width: 600px;
       width: 90%;
-      text-align: center;
-      margin-top: 20px;
+      margin: 2rem auto;
     }
 
-    h1 {
+    .container h1 {
+      margin-top: 0;
       font-size: 2rem;
-      margin-bottom: 0.5rem;
     }
 
-    input[type="number"] {
+    .form input[type="number"] {
       padding: 0.5rem;
       width: 80%;
       font-size: 1rem;
@@ -77,75 +66,58 @@
       cursor: pointer;
     }
 
-    #status {
+    a.launch-button {
+      display: inline-block;
       margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    .mobile-note {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 0.95rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: #6a0dad;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
     }
 
     footer {
-      margin: 40px auto 20px;
+      margin-top: 2rem;
       font-size: 0.85rem;
-      color: #333;
-      text-align: center;
-      padding: 0 1rem;
+      color: #666;
+      padding-bottom: 2rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      .logo-bar img {
+        height: 70px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- ✅ Logos outside container -->
-  <div class="logo-row">
+  <div class="logo-bar">
     <img src="logo.png" alt="$BOWWW Logo">
     <img src="polygon.png" alt="Polygon Logo">
   </div>
 
-  <!-- ✅ About section between logos & container -->
-  <div class="info-section">
-    <h3>What is $BOWWW?</h3>
-    <p>
-      Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.
-    </p>
+  <div class="info-box">
+    <h2>What is $BOWWW?</h2>
+    <p>Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
     <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p>
-      <strong>Contract:</strong>
-      <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
-        0x046FE62B...
-      </a>
-    </p>
+    <p><strong>Contract:</strong> 0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</p>
     <p><strong>Chain:</strong> Polygon (MATIC)</p>
-    <p>
-      <strong>Buy/Sell:</strong>
-      <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>,
-      <a href="https://app.sushi.com/" target="_blank">SushiSwap</a>
-    </p>
+    <p><strong>Buy/Sell:</strong> <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a href="https://app.sushi.com/" target="_blank">SushiSwap</a></p>
+    <p><strong>Note:</strong> For best experience, use MetaMask on desktop or open this page inside the MetaMask mobile browser.</p>
+    <a class="launch-button" href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">🚀 Launch in MetaMask</a>
   </div>
 
-  <!-- ✅ Swap interface -->
   <div class="container">
     <h1>Buy $BOWWW</h1>
     <p><strong>1 MATIC = 369 BOWWW</strong></p>
 
-    <button onclick="connect()">Connect Wallet</button><br>
-    <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
-    <button onclick="buy()">Buy $BOWWW</button>
-
+    <div class="form">
+      <button onclick="connect()">Connect Wallet</button><br>
+      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
+      <button onclick="buy()">Buy $BOWWW</button>
+    </div>
     <p id="status"></p>
-  </div>
-
-  <!-- ✅ Mobile note & MetaMask deep link -->
-  <div class="mobile-note">
-    <p><strong>Using a phone?</strong> This works best on desktop. <br>
-    But if you’re on mobile, launch this dApp inside MetaMask below:</p>
-    <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
-      <button style="margin-top: 10px;">Launch in MetaMask</button>
-    </a>
   </div>
 
   <footer>
