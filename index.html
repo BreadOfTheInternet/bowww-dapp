@@ -1,129 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buy $BOWWW</title>
+  <meta charset="UTF-8">
+  <title>Connect Wallet – $BOWWW DApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Load ethers UMD so `ethers` is available globally -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #FFD141;
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
+      background: #FFD141;
+      font-family: Montserrat, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       margin: 0;
-      padding: 0;
     }
-
-    .container {
-      max-width: 420px;
-      margin: 40px auto;
+    .box {
       background: white;
       padding: 2rem;
-      border-radius: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 360px;
     }
-
-    h2 {
-      color: #5E068A;
-    }
-
-    button, input {
-      font-family: inherit;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      margin: 10px 0;
-    }
-
     button {
-      background-color: #9A4DFF;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      background: #6a0dad;
       color: white;
-      font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
     }
-
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    .link {
-      color: #5E068A;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .warning {
-      color: red;
-      font-size: 14px;
-    }
-
-    .meta-launch {
-      margin: 1rem 0;
-    }
-
-    .meta-launch a {
-      background-color: #9A4DFF;
-      padding: 12px;
-      color: white;
-      border-radius: 10px;
-      display: inline-block;
-      text-decoration: none;
-    }
-
-    .logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      margin-bottom: 20px;
-    }
-
-    .logos img {
-      height: 100px;
-    }
+    p { margin: .5rem 0; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logos">
-      <img src="logo.png" alt="$BOWWW Logo">
-      <img src="polygon.png" alt="Polygon">
-    </div>
-
-    <h2>What is $BOWWW?</h2>
-    <p>
-      Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect
-      the spirit, humor, and spending habits of Gen Z and Gen Alpha generations.
-    </p>
-    <p>Total Supply: 3,600,900,000</p>
-    <p>Chain: Polygon (MATIC)</p>
-    <p>
-      Contract: <a class="link" href="https://polygonscan.com/address/0x284414b6777872E6dD8982394Fed1779dc87a3cF" target="_blank">0x284414b6...dc87a3cF</a>
-    </p>
-    <p>Buy/Sell: <a class="link" href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a class="link" href="https://www.sushi.com/" target="_blank">SushiSwap</a></p>
-
-    <p class="warning">⚠️ MetaMask Mobile Users: DO NOT use Incognito. Open in MetaMask browser.</p>
-
-    <div class="meta-launch">
-      <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">🔗 Launch in MetaMask (mobile only)</a>
-    </div>
-
-    <hr>
-
-    <h2>Buy $BOWWW</h2>
-    <p id="wallet-address">Not connected</p>
-    <p id="rate-display">Fetching rate...</p>
-
-    <button id="connect-button">Connect Wallet</button><br>
-    <input id="amount-input" type="number" placeholder="Amount of MATIC" /><br>
-    <button id="buy-button" disabled>Buy $BOWWW</button>
-
-    <p class="warning" id="status-message"></p>
+  <div class="box">
+    <h2>Connect Your Wallet</h2>
+    <button id="connect-btn">Connect MetaMask</button>
+    <p id="status">Not connected</p>
   </div>
 
   <script src="app.js"></script>
 </body>
 </html>
+
 
 
