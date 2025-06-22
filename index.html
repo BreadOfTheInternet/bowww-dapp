@@ -11,123 +11,112 @@
       font-family: 'Montserrat', sans-serif;
       background-color: #FFD141;
       color: #250045;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem 1rem;
     }
 
-    .logo-bar {
+    .logo-row {
       display: flex;
       justify-content: center;
-      gap: 3rem;
-      padding: 2rem 0 0.5rem;
+      gap: 2rem;
+      margin-bottom: 1rem;
     }
 
-    .logo-bar img {
-      height: 100px;
+    .logo-row img {
+      height: 120px;
+      max-width: 45vw;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 2rem;
+      font-size: 1rem;
     }
 
     .container {
       background: white;
-      max-width: 600px;
-      margin: 1rem auto;
       padding: 2rem;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
     }
 
     h1 {
+      margin-top: 0.5rem;
       font-size: 2rem;
-      margin-bottom: 0.5rem;
     }
 
-    p {
-      font-size: 1rem;
-      margin: 0.5rem 0;
-    }
-
-    input[type="number"] {
-      padding: 0.6rem;
+    .form input[type="number"] {
+      padding: 0.5rem;
       width: 80%;
       font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
       margin: 1rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
       text-align: center;
     }
 
     button {
       background-color: #6a0dad;
       color: white;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
       border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
     }
 
-    .about {
-      margin-top: 2rem;
-      font-size: 1rem;
-      padding: 1rem;
-      line-height: 1.6;
-    }
-
-    .about a {
-      color: #250045;
-      font-weight: bold;
-    }
-
-    footer {
-      margin: 2rem 0 1rem;
-      font-size: 0.85rem;
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      text-align: center;
       color: #333;
     }
   </style>
 </head>
 <body>
-
-  <!-- ✅ Large logos -->
-  <div class="logo-bar">
+  <!-- Logo Row -->
+  <div class="logo-row">
     <img src="logo.png" alt="$BOWWW Logo">
     <img src="polygon.png" alt="Polygon Logo">
   </div>
 
-  <!-- ✅ Swap box container -->
+  <!-- About Section -->
+  <div class="about">
+    <h2>What is $BOWWW?</h2>
+    <p><strong>Bread Of The Internet Coin ($BOWWW)</strong> is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
+    <p><strong>Total Supply:</strong> 3,600,900,000</p>
+    <p><strong>Contract:</strong> 0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</p>
+    <p><strong>Chain:</strong> Polygon (MATIC)</p>
+    <p><strong>Buy/Sell:</strong> Uniswap, SushiSwap</p>
+    <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
+      <button>Launch in MetaMask</button>
+    </a>
+  </div>
+
+  <!-- Main Container -->
   <div class="container">
     <h1>Buy $BOWWW</h1>
     <p><strong>1 MATIC = 369 BOWWW</strong></p>
 
-    <button onclick="connect()">Connect Wallet</button><br>
-    <input type="number" id="amount" placeholder="Amount of MATIC"><br>
-    <button onclick="buy()">Buy $BOWWW</button>
-    <p id="status"></p>
+    <div class="form">
+      <button onclick="connect()">Connect Wallet</button><br>
+      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
+      <button onclick="buy()">Buy $BOWWW</button>
+    </div>
   </div>
 
-  <!-- ✅ About section outside the container -->
-  <div class="about">
-    <h3>📜 About This dApp</h3>
-    <p><strong>What is $BOWWW?</strong><br>
-    Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
-    <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p><strong>Contract:</strong> 
-      <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
-        0x046FE6...A0
-      </a>
-    </p>
-    <p><strong>Chain:</strong> Polygon (MATIC)</p>
-    <p><strong>Buy/Sell:</strong> 
-      <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, 
-      <a href="https://app.sushi.com/" target="_blank">SushiSwap</a>
-    </p>
-    <p><strong>Note:</strong> Desktop browser is preferred for full functionality.</p>
-    <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
-      <button style="margin-top:1rem;">Launch in MetaMask Mobile App</button>
-    </a>
-  </div>
-
-  <footer>
+  <!-- Footer -->
+  <div class="footer">
     Powered by Ethereum smart contracts & IPFS.<br>
     This is the official $BOWWW decentralized purchase dApp.
-  </footer>
+  </div>
 
   <script src="app.js"></script>
 </body>
