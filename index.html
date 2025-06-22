@@ -118,6 +118,105 @@
   <script src="app.js"></script>
 </body>
 </html>
+      height: 100px;
+      margin: 0 1rem;
+    }
+
+    .about {
+      margin: 2rem auto;
+      max-width: 700px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .launch-button {
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      width: 80%;
+      font-size: 1rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      background-color: #6a0dad;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #333;
+    }
+
+    a {
+      color: #6a0dad;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="logos">
+    <img src="logo.png" alt="$BOWWW Logo" />
+    <img src="polygon.png" alt="Polygon Logo" />
+  </div>
+
+  <div class="about">
+    <h2>What is $BOWWW?</h2>
+    <p>
+      Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.
+    </p>
+    <p><strong>Total Supply:</strong> 3,600,900,000</p>
+    <p><strong>Contract:</strong> <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">0x046FE6...8A0</a></p>
+    <p><strong>Chain:</strong> Polygon (MATIC)</p>
+    <p><strong>Buy/Sell:</strong> <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a href="https://app.sushi.com/" target="_blank">SushiSwap</a></p>
+    <div class="launch-button">
+      <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
+        <button>Launch in MetaMask</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Buy $BOWWW with MATIC</h1>
+    <p><strong>1 MATIC = 369 BOWWW</strong></p>
+    <button onclick="connect()">Connect Wallet</button><br />
+    <input type="number" id="amount" placeholder="Amount of MATIC" /><br />
+    <button onclick="buy()">Buy $BOWWW</button>
+    <p id="status"></p>
+  </div>
+
+  <footer>
+    Powered by Ethereum smart contracts & IPFS.<br />
+    This is the official $BOWWW decentralized purchase dApp.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
 
 
 
