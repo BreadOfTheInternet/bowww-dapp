@@ -1,48 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Connect Wallet – $BOWWW DApp</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Load ethers UMD so `ethers` is available globally -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy $BOWWW</title>
+  <!-- Ethers UMD exposes `ethers` globally -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <style>
     body {
       background: #FFD141;
       font-family: Montserrat, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     .box {
-      background: white;
+      background: #fff;
       padding: 2rem;
       border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 90%;
       max-width: 360px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .logos { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+    .logos img { height: 80px; }
+    h2 { margin: 0.5rem 0; color: #5E068A; }
+    p { margin: 0.5rem 0; }
+    button, input {
+      font-family: inherit;
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
     }
     button {
-      margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 6px;
       background: #6a0dad;
-      color: white;
-      font-size: 1rem;
+      color: #fff;
       cursor: pointer;
     }
-    p { margin: .5rem 0; }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .small { font-size: 0.85rem; color: #555; }
+    .status { margin-top: 1rem; color: red; font-size: 0.9rem; }
   </style>
 </head>
 <body>
+
   <div class="box">
-    <h2>Connect Your Wallet</h2>
-    <button id="connect-btn">Connect MetaMask</button>
-    <p id="status">Not connected</p>
+    <div class="logos">
+      <img src="logo.png" alt="$BOWWW">
+      <img src="polygon.png" alt="Polygon">
+    </div>
+
+    <h2>Buy $BOWWW</h2>
+
+    <button id="connect-btn">Connect Wallet</button>
+    <p id="wallet-status" class="small">Not connected</p>
+
+    <p class="small">Rate: <strong>1 MATIC = 369 BOWWW</strong></p>
+    <input type="number" id="amount-input" placeholder="Amount of MATIC" min="0" step="any" disabled />
+
+    <button id="buy-btn" disabled>Buy $BOWWW</button>
+
+    <p id="status" class="status"></p>
   </div>
 
   <script src="app.js"></script>
