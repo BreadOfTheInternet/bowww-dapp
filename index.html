@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Buy $BOWWW</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <style>
     body {
@@ -11,41 +11,44 @@
       font-family: 'Montserrat', sans-serif;
       background-color: #FFD141;
       color: #250045;
+      text-align: center;
+    }
+
+    .logo-section {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
+      gap: 60px;
+      padding: 3rem 1rem 1rem;
+    }
+
+    .logo-section img {
+      height: 140px;
+      max-width: 45%;
     }
 
     .container {
       background: white;
-      padding: 2rem;
+      margin: 1rem auto;
+      padding: 2.5rem;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      max-width: 650px;
       width: 90%;
-      max-width: 500px;
       text-align: center;
-      margin-bottom: 2rem;
     }
 
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      margin-bottom: 1.5rem;
-      font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 2.25rem;
+      margin-bottom: 0.75rem;
     }
 
     .form input[type="number"] {
-      padding: 0.7rem;
+      padding: 0.6rem;
       width: 80%;
       font-size: 1rem;
       margin: 1rem 0;
-      border-radius: 8px;
+      border-radius: 5px;
       border: 1px solid #ccc;
       text-align: center;
     }
@@ -54,72 +57,80 @@
       background-color: #6a0dad;
       color: white;
       border: none;
-      padding: 0.75rem 1.5rem;
+      padding: 0.7rem 1.5rem;
       font-size: 1rem;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
-      margin: 0.5rem;
-    }
-
-    button:hover {
-      background-color: #5a0099;
-    }
-
-    .info {
-      text-align: center;
-      max-width: 600px;
-      font-size: 1rem;
-      color: #333;
-    }
-
-    .info h3 {
-      font-size: 1.2rem;
       margin-bottom: 1rem;
     }
 
-    .info p {
-      font-weight: normal;
-      margin: 0.3rem 0;
+    .about-section {
+      margin: 3rem auto 1rem;
+      max-width: 700px;
+      text-align: center;
+      font-size: 1.05rem;
+      line-height: 1.6;
     }
 
-    .info a {
+    .about-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .about-section p {
+      margin: 0.5rem 0;
+    }
+
+    footer {
+      margin: 3rem 0 2rem;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    a {
       color: #6a0dad;
       text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Buy $BOWWW</h1>
-    <p>1 MATIC = 369 BOWWW</p>
-
-    <div class="form">
-      <button onclick="connect()">Connect Wallet</button><br />
-      <input type="number" id="amount" placeholder="Amount of MATIC" /><br />
-      <button onclick="buy()">Buy $BOWWW</button>
-    </div>
+  <div class="logo-section">
+    <img src="logo.png" alt="$BOWWW Logo">
+    <img src="polygon.png" alt="Polygon Logo">
   </div>
 
-  <div class="info">
+  <div class="container">
+    <h1>Buy $BOWWW</h1>
+    <p><strong>1 MATIC = 369 BOWWW</strong></p>
+    <button onclick="connect()">Connect Wallet</button><br>
+    <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
+    <button onclick="buy()">Buy $BOWWW</button>
+  </div>
+
+  <div class="about-section">
     <h3>📜 About This dApp</h3>
     <p><strong>What is $BOWWW?</strong><br>
-      Bread Of the Internet Coin – a fun, community-powered meme coin.</p>
+    Bread Of the Internet Coin – a fun, community-powered meme coin.</p>
     <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p><strong>Contract:</strong> 
+    <p><strong>Contract:</strong>
       <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
         0x046F...A0
       </a>
     </p>
     <p><strong>Chain:</strong> Polygon (MATIC)</p>
-    <p><strong>Buy/Sell:</strong> 
-      <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, 
+    <p><strong>Buy/Sell:</strong>
+      <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>,
       <a href="https://app.sushi.com/" target="_blank">SushiSwap</a>
     </p>
   </div>
 
+  <footer>
+    Powered by Ethereum smart contracts & IPFS. <br>
+    This is the official $BOWWW decentralized purchase dApp.
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
-
 
 
