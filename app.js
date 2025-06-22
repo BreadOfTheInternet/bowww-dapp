@@ -1,5 +1,6 @@
 // ==== CONFIG ====
-const CONTRACT_ADDRESS = "0x284414b6777872E6dD8982394Fed1779dc87a3cF"; // your token sale contract
+// ← This is your BowwwSwap sale contract that you deployed last night!
+const CONTRACT_ADDRESS = "0x32cDB7Cd5aC3a2721Eb0416f4805B0e7197B5f63";
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
@@ -64,6 +65,7 @@ buyBtn.onclick = async () => {
     status.textContent = `❌ Tx failed: ${err.message}`;
   }
 };
+
 
 
 
