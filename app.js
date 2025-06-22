@@ -1,47 +1,43 @@
-let provider;
-let signer;
-const contractAddress = "0x406FE62Bc4dCE3c9B255C4Ba69f28Cb795A41BA0";
+// Updated app.js with transaction feedback and Polygonscan link
+const contractAddress = "0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0";
 const abi = [
-  // Replace this with your token sale or ERC20 ABI
-  // For now, a placeholder function to simulate
-  "function transfer(address to, uint amount) public returns (bool)"
+  "function buyBowww() payable",
+  "function rate() view returns (uint)",
+  "function withdrawMatic()",
+  "function withdrawTokens()",
+  "function updateRate(uint newRate)",
+  "function bowwwToken() view returns (address)"
 ];
 
+let provider, signer, contract;
+
 async function connect() {
-  if (typeof window.ethereum !== "undefined") {
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      signer = provider.getSigner();
-      alert("Wallet connected");
-    } catch (err) {
-      console.error("User denied wallet access", err);
-    }
+  if (window.ethereum) {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    contract = new ethers.Contract(contractAddress, abi, signer);
+    document.getElementById("status").innerText = "✅ Wallet connected.";
   } else {
-    alert("MetaMask not detected");
+    alert("Please install MetaMask");
   }
 }
 
-async function buyBOWWW() {
-  if (!signer) return alert("Please connect your wallet first.");
-
-  const maticAmount = document.getElementById("amount").value;
-  if (!maticAmount || isNaN(maticAmount)) return alert("Enter a valid amount");
-
-  const bowwwAmount = maticAmount * 369;
-  const contract = new ethers.Contract(contractAddress, abi, signer);
+async function buy() {
+  const amount = document.getElementById("amount").value;
+  const statusEl = document.getElementById("status");
+  if (!amount || !signer) return;
 
   try {
-    const recipient = "0xYourAdminWalletAddressHere"; // Replace this!
     const tx = await signer.sendTransaction({
-      to: recipient,
-      value: ethers.utils.parseEther(maticAmount.toString())
+      to: contractAddress,
+      value: ethers.utils.parseEther(amount)
     });
 
+    statusEl.innerHTML = `✅ Transaction sent! <br>🔗 <a href='https://polygonscan.com/tx/${tx.hash}' target='_blank'>View on Polygonscan</a>`;
+
     await tx.wait();
-    alert(`Success! You bought ${bowwwAmount} BOWWW`);
   } catch (err) {
-    console.error("Transaction failed", err);
-    alert("Transaction failed");
+    statusEl.innerText = "❌ Error: " + err.message;
   }
 }
