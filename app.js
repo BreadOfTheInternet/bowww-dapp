@@ -28,11 +28,11 @@ async function connect() {
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
-    // Show status and enable Buy button
+    // Show wallet address and enable Buy button
     document.getElementById("status").innerHTML = `✅ Connected: <span style="font-size: 0.9rem">${userAddress}</span>`;
     document.querySelector("button[onclick='buy()']").disabled = false;
 
-    // Fetch and display the current rate
+    // Show rate
     const currentRate = await contract.rate();
     document.getElementById("rate-info").innerText = `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
 
@@ -64,3 +64,4 @@ async function buy() {
     document.getElementById("status").innerText = "❌ Transaction Failed: " + err.message;
   }
 }
+
