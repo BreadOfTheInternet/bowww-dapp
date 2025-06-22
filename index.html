@@ -19,7 +19,7 @@
     }
 
     .logo-bar img {
-      height: 140px;
+      height: 180px;
       margin: 0 1rem;
     }
 
@@ -69,10 +69,27 @@
       cursor: not-allowed;
     }
 
-    a.contract-link {
+    .launch-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: #6a0dad;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .contract-link {
       color: #6a0dad;
       text-decoration: underline;
       word-break: break-all;
+    }
+
+    .warning {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
     }
 
     footer {
@@ -92,24 +109,20 @@
 
   <div class="container">
     <h2>What is $BOWWW?</h2>
-    <p><strong>Bread Of The Internet Coin ($BOWWW)</strong> is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
+    <p><strong>Bread Of The Internet Coin ($BOWWW)</strong> is a Polygon-based token designed to reflect the spirit, humor, and spending habits of Gen Z and Gen Alpha.</p>
     <p><strong>Total Supply:</strong> 3,600,900,000</p>
     <p><strong>Contract:</strong>
-      <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0"
-         target="_blank" class="contract-link">
+      <a class="contract-link" href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
         0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0
       </a>
     </p>
     <p><strong>Chain:</strong> Polygon (MATIC)</p>
     <p><strong>Buy/Sell:</strong> <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a href="https://app.sushi.com/" target="_blank">SushiSwap</a></p>
-    <p><strong>Note:</strong> On desktop, ensure MetaMask is installed and unlocked before clicking Connect.</p>
 
-    <button class="launch-button" onclick="launchInMetaMask()">🚀 Open in MetaMask Browser (mobile only)</button>
-
-    <p style="font-size: 0.9rem; color: red; margin-top: 0.5rem;">
-      📱 If it doesn’t open, paste this in MetaMask browser manually:
-    </p>
-    <p style="font-family: monospace;">https://breadoftheinternet.github.io/bowww-dapp/</p>
+    <p class="warning">📢 iOS users: Do NOT use Incognito. Open in the MetaMask mobile browser only.</p>
+    <a class="launch-button" href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
+      🚀 Launch in MetaMask (mobile only)
+    </a>
 
     <hr style="margin: 2rem 0;">
 
