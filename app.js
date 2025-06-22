@@ -1,83 +1,77 @@
-const contractAddress = "0x284414b6777872E6DD8982394Fed1779dc87a3Cf";
-const abi = [
-  "function buyBowww() payable",
-  "function rate() view returns (uint)",
-  "function withdrawMatic()",
-  "function withdrawTokens()",
-  "function updateRate(uint newRate)",
-  "function bowwwToken() view returns (address)"
+let provider;
+let signer;
+let contract;
+
+const CONTRACT_ADDRESS = "0x284414b6777872E6dD8982394Fed1779dc87a3cF";
+const ABI = [
+  "function transfer(address to, uint256 amount) public returns (bool)",
+  "function decimals() view returns (uint8)"
 ];
 
-let provider, signer, contract, userAddress;
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelector("button[onclick='buy()']").disabled = true;
-
-  if (typeof window.ethereum !== 'undefined') {
-    ethereum.request({ method: "eth_accounts" })
-      .then(accounts => {
-        if (accounts.length > 0) {
-          connect();
-        }
-      });
-  } else {
-    document.getElementById("status").innerText = "❌ MetaMask not detected.";
-  }
-});
-
 async function connect() {
-  if (typeof window.ethereum === 'undefined') {
-    alert("❌ MetaMask not detected. Please install MetaMask and avoid Incognito.");
-    return;
-  }
+  const statusMsg = document.getElementById("status-message");
+  const walletAddr = document.getElementById("wallet-address");
 
   try {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    if (!accounts || accounts.length === 0) {
-      throw new Error("No accounts returned from MetaMask.");
+    if (typeof window.ethereum === "undefined") {
+      statusMsg.textContent = "❌ MetaMask is not installed.";
+      return;
     }
 
     provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
-    userAddress = await signer.getAddress();
-    contract = new ethers.Contract(contractAddress, abi, signer);
 
-    document.getElementById("status").innerHTML =
-      `✅ Connected: <span style="font-size: 0.9rem">${userAddress}</span>`;
-    document.querySelector("button[onclick='buy()']").disabled = false;
+    const address = await signer.getAddress();
+    walletAddr.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
+    walletAddr.style.color = "green";
 
-    const currentRate = await contract.rate();
-    document.getElementById("rate-info").innerText =
-      `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
+    // Optional: Fetch and display wallet balance
+    const balance = await provider.getBalance(address);
+    const formatted = ethers.utils.formatEther(balance);
+    document.getElementById("rate-display").textContent = `Balance: ${formatted} MATIC`;
+
+    // Load contract
+    contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
   } catch (err) {
     console.error(err);
-    document.getElementById("status").innerText =
-      "❌ Wallet connection failed: " + err.message;
+    statusMsg.textContent = "❌ Wallet connection failed: " + err.message;
   }
 }
 
 async function buy() {
-  const amount = document.getElementById("amount").value;
-  if (!amount || !signer) {
-    alert("Please enter an amount and connect your wallet.");
+  const statusMsg = document.getElementById("status-message");
+  const amountInput = document.getElementById("amount-input");
+  const amount = amountInput.value.trim();
+
+  if (!provider || !signer || !contract) {
+    statusMsg.textContent = "❌ Connect wallet first.";
+    return;
+  }
+
+  if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+    statusMsg.textContent = "❌ Enter a valid amount.";
     return;
   }
 
   try {
+    statusMsg.textContent = "⏳ Sending transaction...";
+    const decimals = await contract.decimals();
+    const value = ethers.utils.parseEther(amount);
+
+    // Send MATIC to token contract address (if it's set to receive it)
     const tx = await signer.sendTransaction({
-      to: contractAddress,
-      value: ethers.utils.parseEther(amount)
+      to: CONTRACT_ADDRESS,
+      value: value
     });
 
-    document.getElementById("status").innerText = "⏳ Waiting for confirmation...";
     await tx.wait();
-    document.getElementById("status").innerHTML =
-      `✅ Transaction Confirmed! <a href='https://polygonscan.com/tx/${tx.hash}' target='_blank'>View on Polygonscan</a>`;
+
+    statusMsg.innerHTML = `✅ Purchase successful!<br><a href="https://polygonscan.com/tx/${tx.hash}" target="_blank">View on Polygonscan</a>`;
   } catch (err) {
     console.error(err);
-    document.getElementById("status").innerText =
-      "❌ Transaction Failed: " + err.message;
+    statusMsg.textContent = `❌ Transaction failed: ${err.message}`;
   }
 }
-
 
