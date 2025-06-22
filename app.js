@@ -10,22 +10,14 @@ const abi = [
 
 let provider, signer, contract, userAddress;
 
+// Disable buy button until wallet is connected
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("button[onclick='buy()']").disabled = true;
-
-  if (typeof window.ethereum !== 'undefined') {
-    ethereum.request({ method: "eth_accounts" })
-      .then(accounts => {
-        if (accounts.length > 0) {
-          connect();
-        }
-      });
-  }
 });
 
 async function connect() {
   if (typeof window.ethereum === 'undefined') {
-    alert("MetaMask not detected. Please install MetaMask extension.");
+    alert("MetaMask is not installed. Please use MetaMask browser or install it.");
     return;
   }
 
@@ -36,17 +28,17 @@ async function connect() {
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
-    document.getElementById("status").innerHTML =
-      `✅ Connected: <span style="font-size: 0.9rem">${userAddress}</span>`;
+    // Show wallet address and enable Buy button
+    document.getElementById("status").innerHTML = `✅ Connected: <span style="font-size: 0.9rem">${userAddress}</span>`;
     document.querySelector("button[onclick='buy()']").disabled = false;
 
+    // Show rate
     const currentRate = await contract.rate();
-    document.getElementById("rate-info").innerText =
-      `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
+    document.getElementById("rate-info").innerText = `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
+
   } catch (err) {
     console.error(err);
-    document.getElementById("status").innerText =
-      "❌ Connection failed. Please ensure MetaMask is unlocked and reload.";
+    document.getElementById("status").innerText = "❌ Connection failed";
   }
 }
 
@@ -69,8 +61,7 @@ async function buy() {
       `✅ Transaction Confirmed! <a href='https://polygonscan.com/tx/${tx.hash}' target='_blank'>View on Polygonscan</a>`;
   } catch (err) {
     console.error(err);
-    document.getElementById("status").innerText =
-      "❌ Transaction Failed: " + err.message;
+    document.getElementById("status").innerText = "❌ Transaction Failed: " + err.message;
   }
 }
 
