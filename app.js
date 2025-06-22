@@ -1,41 +1,47 @@
-
-const contractAddress = "0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0";
+let provider;
+let signer;
+const contractAddress = "0x406FE62Bc4dCE3c9B255C4Ba69f28Cb795A41BA0";
 const abi = [
-  "function buyBowww() payable",
-  "function rate() view returns (uint)",
-  "function withdrawMatic()",
-  "function withdrawTokens()",
-  "function updateRate(uint newRate)",
-  "function bowwwToken() view returns (address)"
+  // Replace this with your token sale or ERC20 ABI
+  // For now, a placeholder function to simulate
+  "function transfer(address to, uint amount) public returns (bool)"
 ];
 
-let provider, signer, contract;
-
 async function connect() {
-  if (window.ethereum) {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    contract = new ethers.Contract(contractAddress, abi, signer);
-    document.getElementById("status").innerText = "Wallet connected.";
+  if (typeof window.ethereum !== "undefined") {
+    try {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      signer = provider.getSigner();
+      alert("Wallet connected");
+    } catch (err) {
+      console.error("User denied wallet access", err);
+    }
   } else {
-    alert("Please install MetaMask");
+    alert("MetaMask not detected");
   }
 }
 
-async function buy() {
-  const amount = document.getElementById("maticAmount").value;
-  if (!amount || !signer) return;
+async function buyBOWWW() {
+  if (!signer) return alert("Please connect your wallet first.");
+
+  const maticAmount = document.getElementById("amount").value;
+  if (!maticAmount || isNaN(maticAmount)) return alert("Enter a valid amount");
+
+  const bowwwAmount = maticAmount * 369;
+  const contract = new ethers.Contract(contractAddress, abi, signer);
 
   try {
+    const recipient = "0xYourAdminWalletAddressHere"; // Replace this!
     const tx = await signer.sendTransaction({
-      to: contractAddress,
-      value: ethers.utils.parseEther(amount)
+      to: recipient,
+      value: ethers.utils.parseEther(maticAmount.toString())
     });
-    document.getElementById("status").innerText = "Transaction sent. Waiting for confirmation...";
+
     await tx.wait();
-    document.getElementById("status").innerText = "Success! You’ll receive BOWWW shortly.";
+    alert(`Success! You bought ${bowwwAmount} BOWWW`);
   } catch (err) {
-    document.getElementById("status").innerText = "Error: " + err.message;
+    console.error("Transaction failed", err);
+    alert("Transaction failed");
   }
 }
