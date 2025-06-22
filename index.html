@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Buy $BOWWW</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <style>
@@ -15,20 +14,41 @@
       text-align: center;
     }
 
-    .logo-bar {
-      padding-top: 2rem;
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .logo-bar img {
+    .logos img {
       height: 100px;
-      margin: 0 1rem;
     }
 
-    .info-box {
-      margin: 2rem auto 1rem;
-      max-width: 700px;
+    .info-section {
+      margin-top: 2rem;
       font-size: 1rem;
+      padding: 0 1rem;
+    }
+
+    .info-section a {
       color: #250045;
+      text-decoration: underline;
+    }
+
+    .launch-button {
+      margin: 2rem auto;
+    }
+
+    .launch-button a button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: #6a0dad;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
     .container {
@@ -41,12 +61,7 @@
       margin: 2rem auto;
     }
 
-    .container h1 {
-      margin-top: 0;
-      font-size: 2rem;
-    }
-
-    .form input[type="number"] {
+    input[type="number"] {
       padding: 0.5rem;
       width: 80%;
       font-size: 1rem;
@@ -56,7 +71,7 @@
       text-align: center;
     }
 
-    button {
+    button.action {
       background-color: #6a0dad;
       color: white;
       border: none;
@@ -64,67 +79,39 @@
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
+      margin: 0.5rem;
     }
 
-    a.launch-button {
-      display: inline-block;
+    #status {
       margin-top: 1rem;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      background: #6a0dad;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
+      color: #6a0dad;
+      font-weight: bold;
     }
 
     footer {
-      margin-top: 2rem;
+      margin: 2rem 0;
       font-size: 0.85rem;
-      color: #666;
-      padding-bottom: 2rem;
-    }
-
-    @media screen and (max-width: 600px) {
-      .logo-bar img {
-        height: 70px;
-      }
+      color: #444;
     }
   </style>
 </head>
 <body>
-  <div class="logo-bar">
+
+  <div class="logos">
     <img src="logo.png" alt="$BOWWW Logo">
     <img src="polygon.png" alt="Polygon Logo">
   </div>
 
-  <div class="info-box">
+  <div class="info-section">
     <h2>What is $BOWWW?</h2>
     <p>Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
     <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p><strong>Contract:</strong> 0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</p>
+    <p><strong>Contract:</strong> <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</a></p>
     <p><strong>Chain:</strong> Polygon (MATIC)</p>
     <p><strong>Buy/Sell:</strong> <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a href="https://app.sushi.com/" target="_blank">SushiSwap</a></p>
     <p><strong>Note:</strong> For best experience, use MetaMask on desktop or open this page inside the MetaMask mobile browser.</p>
-    <a class="launch-button" href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">🚀 Launch in MetaMask</a>
   </div>
 
-  <div class="container">
-    <h1>Buy $BOWWW</h1>
-    <p><strong>1 MATIC = 369 BOWWW</strong></p>
-
-    <div class="form">
-      <button onclick="connect()">Connect Wallet</button><br>
-      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
-      <button onclick="buy()">Buy $BOWWW</button>
-    </div>
-    <p id="status"></p>
-  </div>
-
-  <footer>
-    Powered by Ethereum smart contracts & IPFS.<br>
-    This is the official $BOWWW decentralized purchase dApp.
-  </footer>
-
-  <script src="app.js"></script>
-</body>
-</html>
+  <div class="launch-button">
+    <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
+      <button>
