@@ -66,6 +66,11 @@
       cursor: pointer;
     }
 
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     a.launch-button {
       display: inline-block;
       margin-top: 1rem;
@@ -111,11 +116,12 @@
   <div class="container">
     <h1>Buy $BOWWW</h1>
     <p><strong>1 MATIC = 369 BOWWW</strong></p>
+    <p id="rate-info">Fetching rate...</p>
 
     <div class="form">
       <button onclick="connect()">Connect Wallet</button><br>
       <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
-      <button onclick="buy()">Buy $BOWWW</button>
+      <button onclick="buy()" disabled>Buy $BOWWW</button>
     </div>
     <p id="status"></p>
   </div>
