@@ -1,6 +1,5 @@
 // ==== CONFIG ====
-const CONTRACT_ADDRESS = "0x284414b6777872E6dD8982394Fed1779dc87a3cF"; // your token contract (payable via receive())
-const RATE = 369; // 1 MATIC = 369 BOWWW
+const CONTRACT_ADDRESS = "0x284414b6777872E6dD8982394Fed1779dc87a3cF"; // your token sale contract
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
@@ -21,17 +20,16 @@ connectBtn.onclick = async () => {
 
   try {
     provider = new ethers.providers.Web3Provider(window.ethereum);
-    // request account access
     await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
-    const address = await signer.getAddress();
 
+    const address = await signer.getAddress();
     walletStat.textContent = `Connected: ${address.slice(0,6)}…${address.slice(-4)}`;
     walletStat.style.color = "green";
+
     connectBtn.disabled = true;
     connectBtn.textContent = "Connected";
 
-    // enable buy flow
     amountIn.disabled = false;
     buyBtn.disabled   = false;
   } catch (err) {
@@ -40,7 +38,7 @@ connectBtn.onclick = async () => {
   }
 };
 
-// ---- Buy Logic ----
+// ---- Buy MATIC → BOWWW ----
 buyBtn.onclick = async () => {
   status.textContent = "";
   const amt = amountIn.value;
@@ -52,12 +50,15 @@ buyBtn.onclick = async () => {
   try {
     const value = ethers.utils.parseEther(amt);
     status.textContent = "⏳ Sending transaction…";
+
     const tx = await signer.sendTransaction({
       to: CONTRACT_ADDRESS,
       value
     });
     await tx.wait();
-    status.innerHTML = `✅ Success! <a href="https://polygonscan.com/tx/${tx.hash}" target="_blank">View Tx</a>`;
+
+    status.innerHTML = `✅ Success!<br>
+      <a href="https://polygonscan.com/tx/${tx.hash}" target="_blank">View on Polygonscan</a>`;
   } catch (err) {
     console.error(err);
     status.textContent = `❌ Tx failed: ${err.message}`;
