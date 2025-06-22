@@ -1,6 +1,6 @@
 // ==== CONFIG ====
 // ← This is your BowwwSwap sale contract that you deployed last night!
-const CONTRACT_ADDRESS = "0x32cDB7Cd5aC3a2721Eb0416f4805B0e7197B5f63";
+const CONTRACT_ADDRESS = "0x046fe62bc4dce3c9b255c48a69f28cb795a418a0";
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
