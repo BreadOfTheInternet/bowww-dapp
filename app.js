@@ -1,4 +1,4 @@
-const contractAddress = "0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0";
+const contractAddress = "0x284414b6777872E6DD8982394Fed1779dc87a3Cf"; // BowwwSwap contract
 const abi = [
   "function buyBowww() payable",
   "function rate() view returns (uint)",
@@ -12,36 +12,20 @@ let provider, signer, contract;
 
 async function connect() {
   if (window.ethereum) {
-    try {
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      signer = provider.getSigner();
-      contract = new ethers.Contract(contractAddress, abi, signer);
-      document.getElementById("status").innerText = "✅ Wallet connected.";
-    } catch (err) {
-      alert("❌ Wallet connection failed.");
-    }
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    contract = new ethers.Contract(contractAddress, abi, signer);
+    document.getElementById("status").innerText = "✅ Wallet connected.";
   } else {
-    alert("Please install MetaMask to continue.");
+    alert("Please install MetaMask to use this dApp.");
   }
 }
 
 async function buy() {
   const amount = document.getElementById("amount").value;
-  const statusEl = document.getElementById("status");
-
-  if (!window.ethereum) {
-    alert("MetaMask not found.");
-    return;
-  }
-
-  if (!signer) {
-    alert("Please connect your wallet first.");
-    return;
-  }
-
-  if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-    alert("Enter a valid MATIC amount.");
+  if (!amount || !signer) {
+    alert("Please enter a MATIC amount and connect wallet.");
     return;
   }
 
@@ -51,11 +35,16 @@ async function buy() {
       value: ethers.utils.parseEther(amount)
     });
 
-    statusEl.innerHTML = `✅ Transaction sent!<br>
-      🔗 <a href='https://polygonscan.com/tx/${tx.hash}' target='_blank'>View on Polygonscan</a>`;
+    document.getElementById("status").innerText = "✅ Transaction sent. Waiting for confirmation...";
     await tx.wait();
+
+    const txHash = tx.hash;
+    document.getElementById("status").innerHTML = `
+      ✅ Transaction successful!<br>
+      <a href="https://polygonscan.com/tx/${txHash}" target="_blank">View on Polygonscan</a>
+    `;
   } catch (err) {
     console.error(err);
-    statusEl.innerText = "❌ Error: " + err.message;
+    document.getElementById("status").innerText = "❌ Error: " + (err.message || "Transaction failed");
   }
 }
