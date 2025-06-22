@@ -1,97 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Buy $BOWWW with MATIC</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background-color: #FFD141; /* Yellow from logo */
-    color: #250045; /* Deep purple from logo for contrast */
-    text-align: center;
-    padding: 2rem;
-  }
-  header img {
-    height: 100px;
-    margin: 0 1rem;
-    vertical-align: middle;
-  }
-  h1 {
-    font-size: 2.2rem;
-    margin-top: 1rem;
-    color: #250045;
-  }
-  .info {
-    margin-top: 2rem;
-    background-color: #ffffff;
-    color: #000;
-    padding: 1rem;
-    border-radius: 10px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  .info p {
-    font-size: 1rem;
-    margin: 0.5rem 0;
-  }
-  .form {
-    margin-top: 2rem;
-  }
-  input[type="number"] {
-    padding: 0.5rem;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    border: none;
-    width: 60%;
-    text-align: center;
-  }
-  button {
-    background-color: #6a0dad;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 0.5rem;
-  }
-  a {
-    color: #6a0dad;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Buy $BOWWW</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #FFD141;
+      color: #250045;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+    }
+
+    header img {
+      height: 80px;
+      margin: 0.5rem;
+    }
+
+    h1 {
+      margin-top: 1rem;
+      font-size: 2rem;
+    }
+
+    .info {
+      margin: 1.5rem 0;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .info p {
+      margin: 0.5rem 0;
+    }
+
+    .form input[type="number"] {
+      padding: 0.5rem;
+      width: 80%;
+      font-size: 1rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      background-color: #6a0dad;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    a {
+      color: #6a0dad;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="BOWWW logo" />
-    <img src="polygon.png" alt="Polygon logo" />
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="$BOWWW Logo">
+      <img src="polygon.png" alt="Polygon Logo">
+    </header>
+
     <h1>Buy $BOWWW with MATIC</h1>
-    <p>1 MATIC = 369 BOWWW</p>
-  </header>
+    <p><strong>1 MATIC = 369 BOWWW</strong></p>
 
-  <div class="info">
-    <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p><strong>Contract Address:</strong><br><code>0x406FE62Bc4dCE3c9B255C4Ba69f28Cb795A41BA0</code></p>
-    <p><strong>Chain:</strong> Polygon (MATIC)</p>
-    <p><strong>DEX Listings:</strong> 
-      <a href="https://app.uniswap.org" target="_blank">Uniswap</a> | 
-      <a href="https://app.sushi.com" target="_blank">SushiSwap</a>
-    </p>
+    <div class="form">
+      <button onclick="connect()">Connect Wallet</button><br>
+      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
+      <button onclick="buy()">Buy $BOWWW</button>
+    </div>
+
+    <div class="info">
+      <h3>📜 About This dApp</h3>
+      <p><strong>What is $BOWWW?</strong><br>
+        Bread Of the Internet Coin – a fun, community-powered meme coin.</p>
+      <p><strong>Total Supply:</strong> 3,600,900,000</p>
+      <p><strong>Contract:</strong> 
+        <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
+          0x046F...A0
+        </a>
+      </p>
+      <p><strong>Chain:</strong> Polygon (MATIC)</p>
+      <p><strong>Buy/Sell:</strong> 
+        <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, 
+        <a href="https://app.sushi.com/" target="_blank">SushiSwap</a>
+      </p>
+    </div>
+
+    <footer>
+      Powered by Ethereum smart contracts & IPFS<br>
+      This is the official $BOWWW decentralized purchase dApp.
+    </footer>
   </div>
 
-  <div class="form">
-    <button onclick="connect()">Connect Wallet</button><br/>
-    <input type="number" id="amount" placeholder="Amount of MATIC" /><br/>
-    <button onclick="buyBOWWW()">Buy BOWWW</button>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
+
