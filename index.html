@@ -19,15 +19,8 @@
     }
 
     .logo-bar img {
-      height: 100px;
+      height: 200px;
       margin: 0 1rem;
-    }
-
-    .info-box {
-      margin: 2rem auto 1rem;
-      max-width: 700px;
-      font-size: 1rem;
-      color: #250045;
     }
 
     .container {
@@ -35,14 +28,19 @@
       padding: 2rem;
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
+      max-width: 700px;
       width: 90%;
       margin: 2rem auto;
     }
 
-    .container h1 {
+    .container h2 {
       margin-top: 0;
       font-size: 2rem;
+    }
+
+    .container p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
     }
 
     .form input[type="number"] {
@@ -63,6 +61,7 @@
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 1rem;
     }
 
     button:disabled {
@@ -87,34 +86,28 @@
       color: #666;
       padding-bottom: 2rem;
     }
-
-    @media screen and (max-width: 600px) {
-      .logo-bar img {
-        height: 70px;
-      }
-    }
   </style>
 </head>
 <body>
+
   <div class="logo-bar">
     <img src="logo.png" alt="$BOWWW Logo">
     <img src="polygon.png" alt="Polygon Logo">
   </div>
 
-  <div class="info-box">
+  <div class="container">
     <h2>What is $BOWWW?</h2>
-    <p>Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
+    <p><strong>Bread Of The Internet Coin ($BOWWW)</strong> is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
     <p><strong>Total Supply:</strong> 3,600,900,000</p>
     <p><strong>Contract:</strong> 0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</p>
     <p><strong>Chain:</strong> Polygon (MATIC)</p>
     <p><strong>Buy/Sell:</strong> <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a href="https://app.sushi.com/" target="_blank">SushiSwap</a></p>
-    <p><strong>Note:</strong> For best experience, use MetaMask on desktop or open this page inside the MetaMask mobile browser.</p>
+    <p><strong>Note:</strong> On desktop, ensure MetaMask is unlocked before clicking Connect.</p>
     <a class="launch-button" href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">🚀 Launch in MetaMask</a>
-  </div>
 
-  <div class="container">
-    <h1>Buy $BOWWW</h1>
-    <p><strong>1 MATIC = 369 BOWWW</strong></p>
+    <hr style="margin: 2rem 0;">
+
+    <h2>Buy $BOWWW</h2>
     <p id="rate-info">Fetching rate...</p>
 
     <div class="form">
@@ -130,9 +123,9 @@
     This is the official $BOWWW decentralized purchase dApp.
   </footer>
 
-  <!-- ✅ Correct script order: load ethers before app.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
+
 
