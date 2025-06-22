@@ -11,8 +11,7 @@ const abi = [
 let provider, signer, contract, userAddress;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const buyBtn = document.querySelector("button[onclick='buy()']");
-  buyBtn.disabled = true;
+  document.querySelector("button[onclick='buy()']").disabled = true;
 
   if (!window.ethereum) {
     document.getElementById("status").innerHTML = "❌ MetaMask not detected. Please install the extension.";
@@ -32,6 +31,8 @@ async function connect() {
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
+    console.log("Connected address:", userAddress);
+
     document.getElementById("status").innerHTML =
       `✅ Connected: <span style="font-size: 0.9rem">${userAddress}</span>`;
     document.querySelector("button[onclick='buy()']").disabled = false;
@@ -41,12 +42,8 @@ async function connect() {
       `Current Rate: 1 MATIC = ${currentRate.toString()} BOWWW`;
   } catch (err) {
     console.error("Connection Error:", err);
-    if (err.code === 4001) {
-      document.getElementById("status").innerText = "❌ User rejected connection.";
-    } else {
-      document.getElementById("status").innerText =
-        "❌ Connection failed. Make sure MetaMask is unlocked and try again.";
-    }
+    document.getElementById("status").innerText =
+      `❌ Connection failed. ${err.message || "Please unlock MetaMask and try again."}`;
   }
 }
 
