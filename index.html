@@ -2,145 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Buy $BOWWW</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <title>Buy $BOWWW | Bread Of Internet Coin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <!-- Style -->
   <style>
     body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #FFD141;
-      color: #250045;
-      text-align: center;
+      padding: 0;
     }
 
-    .logo-bar {
-      padding-top: 2rem;
+    header {
+      padding: 30px 20px 20px;
+      background-color: #111;
+      border-bottom: 2px solid #444;
     }
 
-    .logo-bar img {
-      height: 120px;
-      margin: 0 1rem;
+    .logo {
+      width: 80px;
+      vertical-align: middle;
+      margin-right: 10px;
     }
 
-    .container {
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      max-width: 700px;
-      width: 90%;
-      margin: 2rem auto;
+    .heading {
+      font-size: 2em;
+      font-weight: bold;
+      color: #FFD700;
     }
 
-    .container h2 {
-      margin-top: 0;
-      font-size: 2rem;
+    .info-section {
+      margin: 30px auto;
+      max-width: 600px;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #444;
     }
 
-    .container p {
-      font-size: 1rem;
-      margin: 0.5rem 0;
+    .info-section h2 {
+      color: #FFDE59;
     }
 
-    .form input[type="number"] {
-      padding: 0.5rem;
-      width: 80%;
-      font-size: 1rem;
-      margin: 1rem 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      text-align: center;
+    .info-section p, .info-section a {
+      color: #ddd;
+      font-size: 16px;
+    }
+
+    .info-section a {
+      text-decoration: underline;
+    }
+
+    .buy-section {
+      margin-top: 30px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      width: 180px;
+      font-size: 16px;
+      margin-top: 10px;
     }
 
     button {
-      background-color: #6a0dad;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
+      padding: 10px 20px;
+      margin-top: 15px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 1rem;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    a.launch-button, button.launch-button {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      background: #6a0dad;
+      background-color: #6200EA;
       color: white;
-      border-radius: 8px;
-      text-decoration: none;
       border: none;
+      border-radius: 5px;
     }
 
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #666;
-      padding-bottom: 2rem;
+    button:hover {
+      background-color: #7b1fa2;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding-bottom: 20px;
+      font-size: 12px;
+      color: #888;
     }
   </style>
 </head>
 <body>
 
-  <div class="logo-bar">
-    <img src="logo.png" alt="$BOWWW Logo">
-    <img src="polygon.png" alt="Polygon Logo">
-  </div>
+  <!-- Header -->
+  <header>
+    <img src="https://raw.githubusercontent.com/BreadOfTheInternet/bowww-dapp/main/logo.png" alt="BOWWW Logo" class="logo">
+    <img src="https://cryptologos.cc/logos/polygon-matic-logo.png?v=026" alt="Polygon Logo" class="logo" style="width: 50px;">
+    <span class="heading">Buy $BOWWW with MATIC</span>
+  </header>
 
-  <div class="container">
-    <h2>What is $BOWWW?</h2>
-    <p><strong>Bread Of The Internet Coin ($BOWWW)</strong> is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
+  <!-- Info Section -->
+  <div class="info-section">
+    <h2>About Bread Of The Internet Coin ($BOWWW)</h2>
     <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p><strong>Contract:</strong> <a href="https://polygonscan.com/token/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</a></p>
     <p><strong>Chain:</strong> Polygon (MATIC)</p>
-    <p><strong>Buy/Sell:</strong> <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>, <a href="https://app.sushi.com/" target="_blank">SushiSwap</a></p>
-    <p style="color: #f00; font-size: 0.9rem;">⚠️ MetaMask Mobile Users: <strong>DO NOT use Incognito</strong>. Open in MetaMask browser.</p>
-    <button class="launch-button" onclick="launchInMetaMask()">🚀 Launch in MetaMask (mobile only)</button>
-
-    <hr style="margin: 2rem 0;">
-
-    <h2>Buy $BOWWW</h2>
-    <p id="rate-info">Fetching rate...</p>
-
-    <div class="form">
-      <button onclick="connect()">Connect Wallet</button><br>
-      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
-      <button onclick="buy()" disabled>Buy $BOWWW</button>
-    </div>
-    <p id="status" style="color: red; font-size: 0.9rem;"></p>
+    <p><strong>Contract:</strong> 
+      <code>0x40f6E62Bc4dCE3c9B255C4a869f2BCb7954A18A0</code>
+    </p>
+    <p><strong>DEX Listings:</strong> 
+      <a href="https://app.uniswap.org" target="_blank">Uniswap</a> | 
+      <a href="https://app.sushi.com" target="_blank">SushiSwap</a>
+    </p>
   </div>
 
-  <footer>
-    Powered by Ethereum smart contracts & IPFS.<br>
-    This is the official $BOWWW decentralized purchase dApp.
-  </footer>
+  <!-- Buy Section -->
+  <div class="info-section buy-section">
+    <h2>How to Buy</h2>
+    <p>1 MATIC = 369 BOWWW</p>
+    <button onclick="connect()">🔌 Connect Wallet</button><br>
+    <input type="number" id="maticAmount" placeholder="Enter MATIC amount"><br>
+    <button onclick="buyBOWWW()">🍞 Buy BOWWW</button>
+  </div>
 
-  <!-- ✅ Correct UMD Ethers script that exposes `ethers` globally -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <div class="footer">
+    Built by BreadOfTheInternet &copy; 2025
+  </div>
 
-  <script>
-    function launchInMetaMask() {
-      const dappUrl = "breadoftheinternet.github.io/bowww-dapp/";
-      const fullLink = "https://metamask.app.link/dapp/" + dappUrl;
-
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        window.location.href = fullLink;
-      } else {
-        alert("MetaMask mobile browser required to open this link.");
-      }
-    }
-  </script>
-  <script src="app.js?v=4"></script>
+  <!-- App Logic -->
+  <script src="app.js"></script>
 </body>
 </html>
 
