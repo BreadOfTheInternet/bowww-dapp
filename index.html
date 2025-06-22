@@ -19,7 +19,7 @@
     }
 
     .logo-bar img {
-      height: 150px;
+      height: 120px;
       margin: 0 1rem;
     }
 
@@ -124,8 +124,9 @@
     This is the official $BOWWW decentralized purchase dApp.
   </footer>
 
-  <!-- ✅ Load Ethers.js BEFORE your script -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <!-- ✅ Correct UMD Ethers script that exposes `ethers` globally -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
   <script>
     function launchInMetaMask() {
       const dappUrl = "breadoftheinternet.github.io/bowww-dapp/";
@@ -139,7 +140,7 @@
       }
     }
   </script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
 
