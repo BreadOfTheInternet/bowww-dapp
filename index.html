@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Buy $BOWWW</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-  <script>
-    if (typeof window.ethereum === 'undefined' && /iPhone|Android/i.test(navigator.userAgent)) {
-      window.location.href = "https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/";
-    }
-  </script>
   <style>
     body {
       margin: 0;
@@ -20,18 +15,26 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      padding: 2rem 1rem;
     }
 
-    .top-logos {
-      margin-top: 20px;
+    .logo-row {
       display: flex;
-      gap: 40px;
       justify-content: center;
-      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 1rem;
     }
 
-    .top-logos img {
-      height: 140px;
+    .logo-row img {
+      height: 120px;
+      max-width: 45vw;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 2rem;
+      font-size: 1rem;
     }
 
     .container {
@@ -42,12 +45,11 @@
       max-width: 600px;
       width: 90%;
       text-align: center;
-      margin-top: 30px;
     }
 
     h1 {
+      margin-top: 0.5rem;
       font-size: 2rem;
-      margin-bottom: 1rem;
     }
 
     .form input[type="number"] {
@@ -70,76 +72,56 @@
       cursor: pointer;
     }
 
-    .about {
-      margin-top: 40px;
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
       text-align: center;
-      font-size: 1rem;
-      line-height: 1.6;
-      padding: 0 20px;
-      max-width: 600px;
-    }
-
-    .about a {
-      color: #250045;
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 60px;
-      font-size: 0.85rem;
-      text-align: center;
-      color: #666;
-      padding-bottom: 30px;
+      color: #333;
     }
   </style>
 </head>
 <body>
-
-  <!-- 🥖 Top Logos -->
-  <div class="top-logos">
-    <img src="logo.png" alt="$BOWWW Logo" />
-    <img src="polygon.png" alt="Polygon Logo" />
+  <!-- Logo Row -->
+  <div class="logo-row">
+    <img src="logo.png" alt="$BOWWW Logo">
+    <img src="polygon.png" alt="Polygon Logo">
   </div>
 
-  <!-- 🥖 Main Buy Container -->
+  <!-- About Section -->
+  <div class="about">
+    <h2>What is $BOWWW?</h2>
+    <p><strong>Bread Of The Internet Coin ($BOWWW)</strong> is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations.</p>
+    <p><strong>Total Supply:</strong> 3,600,900,000</p>
+    <p><strong>Contract:</strong> 0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0</p>
+    <p><strong>Chain:</strong> Polygon (MATIC)</p>
+    <p><strong>Buy/Sell:</strong> Uniswap, SushiSwap</p>
+    <a href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/">
+      <button>Launch in MetaMask</button>
+    </a>
+  </div>
+
+  <!-- Main Container -->
   <div class="container">
-    <h1>Buy $BOWWW with MATIC</h1>
+    <h1>Buy $BOWWW</h1>
     <p><strong>1 MATIC = 369 BOWWW</strong></p>
 
     <div class="form">
-      <button onclick="connect()">Connect Wallet</button><br />
-      <input type="number" id="amount" placeholder="Amount of MATIC" /><br />
+      <button onclick="connect()">Connect Wallet</button><br>
+      <input type="number" id="amount" placeholder="Amount of MATIC" /><br>
       <button onclick="buy()">Buy $BOWWW</button>
     </div>
-    <p id="status"></p>
   </div>
 
-  <!-- 🥖 About Section -->
-  <div class="about">
-    <p><strong>What is $BOWWW?</strong><br />
-     Bread Of The Internet Coin ($BOWWW) is a Polygon-based token designed to reflect the spirit, humor, and spending habits of the Gen Z and Gen Alpha generations. </p>
-    <p><strong>Total Supply:</strong> 3,600,900,000</p>
-    <p><strong>Contract:</strong>
-      <a href="https://polygonscan.com/address/0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0" target="_blank">
-        0x046FE62Bc4dCE3c9B255c48a69f28Cb795A418A0
-      </a>
-    </p>
-    <p><strong>Chain:</strong> Polygon (MATIC)</p>
-    <p><strong>Buy/Sell:</strong>
-      <a href="https://app.uniswap.org/" target="_blank">Uniswap</a>,
-      <a href="https://app.sushi.com/" target="_blank">SushiSwap</a>
-    </p>
-  </div>
-
-  <!-- 🥖 Footer -->
-  <footer>
-    Powered by Ethereum smart contracts & IPFS.<br />
+  <!-- Footer -->
+  <div class="footer">
+    Powered by Ethereum smart contracts & IPFS.<br>
     This is the official $BOWWW decentralized purchase dApp.
-  </footer>
+  </div>
 
   <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
