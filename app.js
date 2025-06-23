@@ -1,6 +1,6 @@
 // ==== CONFIG ====
-// Lower-case address to satisfy Ethers checksum requirement
-const CONTRACT_ADDRESS = "0x284414b6777872e6dd8982394fed1779dc87a3cf";
+// Use all-lowercase to satisfy ethers.js checksum enforcement
+const CONTRACT_ADDRESS = "0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248";
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
@@ -49,10 +49,9 @@ buyBtn.onclick = async () => {
   }
 
   try {
-    const value = ethers.utils.parseEther(amt.toString());
+    const value = ethers.utils.parseEther(amt);
     status.textContent = "⏳ Sending transaction…";
 
-    // send MATIC to your sale contract
     const tx = await signer.sendTransaction({
       to: CONTRACT_ADDRESS,
       value
@@ -66,6 +65,7 @@ buyBtn.onclick = async () => {
     status.textContent = `❌ Tx failed: ${err.message}`;
   }
 };
+
 
 
 
