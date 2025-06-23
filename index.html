@@ -29,13 +29,16 @@
       align-items: center; justify-content: center;
       min-height: 100vh;
     }
+    /* Logos above the card */
     .header-logos {
       display: flex;
       gap: 2rem;
       margin-bottom: 1rem;
     }
     .header-logos img {
-      height: 160px; /* doubled size */
+      height: 160px;            /* doubled size */
+      background-color: var(--yellow); /* hides any white frame */
+      border-radius: 1rem;      /* round the edges slightly */
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
     .box {
@@ -109,7 +112,7 @@
 </head>
 <body>
 
-  <!-- Logos outside the box -->
+  <!-- Logos outside the card -->
   <div class="header-logos">
     <img src="logo.png" alt="$BOWWW Logo"/>
     <img src="polygon.png" alt="Polygon Logo"/>
@@ -118,7 +121,8 @@
   <div class="box">
     <!-- Professional intro message -->
     <p>
-Welcome to the official $BOWWW DEX — the gateway to Bread of the Internet Coin, Polygon’s fastest-rising meme token!    </p>
+      Welcome to the official $BOWWW DEX — the gateway to Bread of the Internet Coin, Polygon’s fastest-rising meme token!
+    </p>
 
     <h2>Buy <span class="rate">$BOWWW</span></h2>
 
@@ -142,10 +146,10 @@ Welcome to the official $BOWWW DEX — the gateway to Bread of the Internet Coin
 
   <!-- Footer with clickable links -->
   <footer>
-    <a href="https://polygonscan.com/address/0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248#code" target="_blank">Swap Contract</a>|
-    <a href="https://polygonscan.com/address/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Contract</a>|
-    <a href="https://polygonscan.com/token/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Details</a>|
-    <a href="https://app.uniswap.org/positions/v4/polygon/26113" target="_blank">Uni V4 LP</a>|
+    <a href="https://polygonscan.com/address/0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248#code" target="_blank">Swap Contract</a> |
+    <a href="https://polygonscan.com/address/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Contract</a> |
+    <a href="https://polygonscan.com/token/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Details</a> |
+    <a href="https://app.uniswap.org/positions/v4/polygon/26113" target="_blank">Uni V4 LP</a> |
     <a href="https://www.sushi.com/polygon/pool/v3/0x0dEA6e247753b4Ea0c1313cBE2765936367c2161/14902" target="_blank">Sushi V3 LP</a>
   </footer>
 
@@ -153,6 +157,7 @@ Welcome to the official $BOWWW DEX — the gateway to Bread of the Internet Coin
   <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
