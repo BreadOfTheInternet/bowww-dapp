@@ -1,88 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buy $BOWWW</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <!-- ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <style>
+    :root {
+      --purple: #6a0dad;
+      --purple-dark: #5e068a;
+      --yellow: #ffd141;
+      --gray-light: #f5f5f5;
+      --gray-dark: #333;
+      --transition: 0.3s ease;
+    }
+    * { box-sizing: border-box; transition: var(--transition); }
     body {
-      background: #FFD141;
-      font-family: Montserrat, sans-serif;
-      margin: 0;
-      height: 100vh;
+      margin: 0; padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--yellow);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+    .header-logos {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    .header-logos img {
+      height: 160px; /* doubled size */
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
     .box {
       background: #fff;
       padding: 2rem;
-      border-radius: 12px;
+      border-radius: 1rem;
       width: 90%;
       max-width: 360px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .logos {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .logos img {
-      height: 80px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      display: flex; flex-direction: column; gap: 1rem;
     }
     h2 {
-      margin: 0.5rem 0;
-      color: #5E068A;
+      margin: 0;
+      color: var(--purple-dark);
+      font-weight: 600;
+      font-size: 1.5rem;
     }
-    p {
-      margin: 0.5rem 0;
-      font-size: 0.9rem;
-    }
-    button, input {
-      font-family: inherit;
-      margin-top: 0.75rem;
-      padding: 0.75rem 1rem;
-      border-radius: 6px;
-      border: none;
+    p { margin: 0; color: var(--gray-dark); }
+    .rate { font-weight: 600; color: var(--purple); }
+    input, button {
       width: 100%;
-      box-sizing: border-box;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: 2px solid transparent;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+    }
+    input {
+      background: var(--gray-light);
+      border-color: var(--gray-light);
+    }
+    input:focus {
+      border-color: var(--purple);
+      background: #fff;
     }
     button {
-      background: #6a0dad;
+      background: var(--purple);
       color: #fff;
+      border: none;
       cursor: pointer;
+      font-weight: 600;
     }
-    button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
+    button:hover:not(:disabled) { background: var(--purple-dark); }
+    button:disabled { background: #ccc; cursor: not-allowed; }
     .status {
-      margin-top: 1rem;
-      color: red;
+      min-height: 1.5em;
       font-size: 0.9rem;
+      color: var(--purple-dark);
+      font-weight: 500;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      text-align: center;
+      color: var(--gray-dark);
+    }
+    footer a {
+      color: var(--purple);
+      text-decoration: none;
+      margin: 0 .25rem;
+    }
+    footer a:hover { text-decoration: underline; }
+    /* Mobile tweaks */
+    @media (max-width: 400px) {
+      .box { padding: 1.5rem; }
+      h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="logos">
-      <img src="logo.png" alt="$BOWWW Logo" />
-      <img src="polygon.png" alt="Polygon Logo" />
-    </div>
 
-    <h2>Buy $BOWWW</h2>
+  <!-- Logos outside the box -->
+  <div class="header-logos">
+    <img src="logo.png" alt="$BOWWW Logo"/>
+    <img src="polygon.png" alt="Polygon Logo"/>
+  </div>
+
+  <div class="box">
+    <!-- Professional intro message -->
+    <p>
+      Welcome to the <strong>official DEX of $BOWWW</strong>—Bread of the Internet Coin—Polygon’s up-and-coming super meme token!
+    </p>
+
+    <h2>Buy <span class="rate">$BOWWW</span></h2>
 
     <button id="connect-btn">Connect Wallet</button>
-    <p id="wallet-status">Not connected</p>
+    <p id="wallet-status" class="status">Not connected</p>
 
-    <p>Rate: <strong>1 MATIC = 369 BOWWW</strong></p>
+    <p>
+      Rate: <span class="rate">1 MATIC = 369 BOWWW</span>
+    </p>
     <input
       type="number"
       id="amount-input"
@@ -90,15 +136,26 @@
       disabled
     />
 
-    <button id="buy-btn" disabled>Buy $BOWWW</button>
+    <button id="buy-btn" disabled>Buy BOWWW</button>
 
     <p id="status" class="status"></p>
   </div>
 
-  <!-- your application logic -->
+  <!-- Footer with clickable links -->
+  <footer>
+    <p>Useful Links:</p>
+    <a href="https://polygonscan.com/address/0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248#code" target="_blank">Swap Contract</a>|
+    <a href="https://polygonscan.com/address/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Contract</a>|
+    <a href="https://polygonscan.com/token/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Details</a>|
+    <a href="https://app.uniswap.org/positions/v4/polygon/26113" target="_blank">Uni V4 LP</a>|
+    <a href="https://www.sushi.com/polygon/pool/v3/0x0dEA6e247753b4Ea0c1313cBE2765936367c2161/14902" target="_blank">Sushi V3 LP</a>
+  </footer>
+
+  <!-- App logic -->
   <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
