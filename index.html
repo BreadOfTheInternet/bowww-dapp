@@ -20,27 +20,33 @@
       --gray-dark: #333;
       --transition: 0.3s ease;
     }
-    * { box-sizing: border-box; transition: var(--transition); }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      transition: var(--transition);
+    }
     body {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       font-family: 'Montserrat', sans-serif;
       background-color: var(--yellow);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
     }
-    /* Logos above the card */
+
+    /* header logos, doubled size with no visible frame */
     .header-logos {
       display: flex;
       gap: 2rem;
       margin-bottom: 1rem;
     }
     .header-logos img {
-      height: 160px;            /* doubled size */
-      background-color: var(--yellow); /* hides any white frame */
-      border-radius: 1rem;      /* round the edges slightly */
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      height: 160px;
+      background: var(--yellow);
     }
+
     .box {
       background: #fff;
       padding: 2rem;
@@ -49,7 +55,9 @@
       max-width: 360px;
       text-align: center;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      display: flex; flex-direction: column; gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
     h2 {
       margin: 0;
@@ -57,8 +65,14 @@
       font-weight: 600;
       font-size: 1.5rem;
     }
-    p { margin: 0; color: var(--gray-dark); }
-    .rate { font-weight: 600; color: var(--purple); }
+    p {
+      margin: 0;
+      color: var(--gray-dark);
+    }
+    .rate {
+      font-weight: 600;
+      color: var(--purple);
+    }
     input, button {
       width: 100%;
       padding: 0.75rem 1rem;
@@ -83,14 +97,44 @@
       cursor: pointer;
       font-weight: 600;
     }
-    button:hover:not(:disabled) { background: var(--purple-dark); }
-    button:disabled { background: #ccc; cursor: not-allowed; }
+    button:hover:not(:disabled) {
+      background: var(--purple-dark);
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
     .status {
       min-height: 1.5em;
       font-size: 0.9rem;
       color: var(--purple-dark);
       font-weight: 500;
     }
+
+    /* mobile-only MetaMask deep-link button */
+    .mobile-open {
+      display: none;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    .mobile-open a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--purple);
+      color: #fff;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .mobile-open a:hover {
+      background: var(--purple-dark);
+    }
+    @media (max-width: 600px) {
+      .mobile-open {
+        display: block;
+      }
+    }
+
     footer {
       margin-top: 2rem;
       font-size: 0.85rem;
@@ -102,24 +146,30 @@
       text-decoration: none;
       margin: 0 .25rem;
     }
-    footer a:hover { text-decoration: underline; }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
     /* Mobile tweaks */
     @media (max-width: 400px) {
-      .box { padding: 1.5rem; }
-      h2 { font-size: 1.25rem; }
+      .box {
+        padding: 1.5rem;
+      }
+      h2 {
+        font-size: 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Logos outside the card -->
+  <!-- Logos outside the box -->
   <div class="header-logos">
-    <img src="logo.png" alt="$BOWWW Logo"/>
-    <img src="polygon.png" alt="Polygon Logo"/>
+    <img src="logo.png" alt="$BOWWW Logo" />
+    <img src="polygon.png" alt="Polygon Logo" />
   </div>
 
   <div class="box">
-    <!-- Professional intro message -->
     <p>
       Welcome to the official $BOWWW DEX — the gateway to Bread of the Internet Coin, Polygon’s fastest-rising meme token!
     </p>
@@ -139,26 +189,45 @@
       disabled
     />
 
-    <button id="buy-btn" disabled>Buy BOWWW</button>
+    <button id="buy-btn" disabled>Buy $BOWWW</button>
 
     <p id="status" class="status"></p>
   </div>
 
-  <!-- Footer with clickable links -->
-  <footer>
-    <a href="https://polygonscan.com/address/0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248#code" target="_blank">Swap Contract</a> |
-    <a href="https://polygonscan.com/address/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Contract</a> |
-    <a href="https://polygonscan.com/token/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">Token Details</a> |
-    <a href="https://app.uniswap.org/positions/v4/polygon/26113" target="_blank">Uni V4 LP</a> |
-    <a href="https://www.sushi.com/polygon/pool/v3/0x0dEA6e247753b4Ea0c1313cBE2765936367c2161/14902" target="_blank">Sushi V3 LP</a>
-  <a href="https://linktr.ee/breadoftheinternet" target="_blank">Linktree</a>
+  <!-- Mobile-only MetaMask deep link -->
+  <div class="mobile-open">
+    <a
+      href="https://metamask.app.link/dapp/breadoftheinternet.github.io/bowww-dapp/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Open in MetaMask (mobile only)
+    </a>
+  </div>
 
+  <footer>
+    <a href="https://polygonscan.com/address/0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248#code" target="_blank">
+      Swap Contract
+    </a>|
+    <a href="https://polygonscan.com/address/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">
+      Token Contract
+    </a>|
+    <a href="https://polygonscan.com/token/0x284414b6777872e6dd8982394fed1779dc87a3cf#code" target="_blank">
+      Token Details
+    </a>|
+    <a href="https://app.uniswap.org/positions/v4/polygon/26113" target="_blank">
+      Uni V4 LP
+    </a>|
+    <a href="https://linktr.ee/breadoftheinternet" target="_blank">
+      More Links
+    </a>
   </footer>
 
   <!-- App logic -->
   <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
