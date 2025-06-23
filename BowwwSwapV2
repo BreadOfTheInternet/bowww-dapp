@@ -1,94 +1,49 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-
-/// @title  BowwwSwapV2 — fixed-rate BOWWW token sale
-/// @notice 1 MATIC ⇒ rate × BOWWW; owner can pause, update rate, and withdraw
-contract BowwwSwapV2 is Ownable, Pausable {
-    using SafeERC20 for IERC20;
-
-    IERC20 public immutable bowwwToken;
-    uint256 public rate;
-
-    /// @param _bowwwToken address of the ERC-20 BOWWW token
-    /// @param _rate       tokens per MATIC (e.g. 369)
-    constructor(address _bowwwToken, uint256 _rate) {
-        require(_bowwwToken != address(0), "Zero token address");
-        require(_rate > 0,           "Zero rate");
-        bowwwToken = IERC20(_bowwwToken);
-        rate       = _rate;
-    }
-
-    /// @dev accept MATIC via `buy()`
-    receive() external payable {
-        buy();
-    }
-
-    /// @notice swap MATIC for BOWWW at `rate`
-    /// @dev emits Purchase(buyer, amountIn, amountOut)
-    function buy() public payable whenNotPaused {
-        uint256 inAmt  = msg.value;
-        require(inAmt > 0, "Send MATIC");
-        uint256 outAmt = inAmt * rate;
-        require(bowwwToken.balanceOf(address(this)) >= outAmt, "Insufficient BOWWW");
-        bowwwToken.safeTransfer(msg.sender, outAmt);
-        emit Purchase(msg.sender, inAmt, outAmt);
-    }
-
-    /// @notice change price (tokens per MATIC)
-    /// @param _newRate new rate value
-    /// @dev onlyOwner, emits RateChanged(old, new)
-    function setRate(uint256 _newRate) external onlyOwner {
-        require(_newRate > 0, "Zero rate");
-        uint256 old = rate;
-        rate = _newRate;
-        emit RateChanged(old, _newRate);
-    }
-
-    /// @notice pause or resume sales
-    function pause()   external onlyOwner { _pause();   }
-    function unpause() external onlyOwner { _unpause(); }
-
-    /// @notice withdraw all MATIC from contract
-    /// @dev onlyOwner, emits MaticWithdrawn(owner, amount)
-    function withdrawMatic() external onlyOwner {
-        uint256 bal = address(this).balance;
-        require(bal > 0, "No MATIC");
-        payable(owner()).transfer(bal);
-        emit MaticWithdrawn(owner(), bal);
-    }
-
-    /// @notice withdraw all leftover BOWWW from contract
-    /// @dev onlyOwner, emits TokenWithdrawn(owner, amount)
-    function withdrawTokens() external onlyOwner {
-        uint256 bal = bowwwToken.balanceOf(address(this));
-        require(bal > 0, "No tokens");
-        bowwwToken.safeTransfer(owner(), bal);
-        emit TokenWithdrawn(owner(), bal);
-    }
-
-    /*╔═════════════════════════════════╗
-      ║           EVENTS               ║
-      ╚═════════════════════════════════╝*/
-
-    /// @param buyer     who paid MATIC
-    /// @param amountIn  MATIC paid (wei)
-    /// @param amountOut BOWWW sent
-    event Purchase(address indexed buyer, uint256 amountIn, uint256 amountOut);
-
-    /// @param oldRate previous tokens/MATIC
-    /// @param newRate new tokens/MATIC
-    event RateChanged(uint256 oldRate, uint256 newRate);
-
-    /// @param owner who withdrew
-    /// @param amount MATIC amount (wei)
-    event MaticWithdrawn(address indexed owner, uint256 amount);
-
-    /// @param owner who withdrew
-    /// @param amount BOWWW amount
-    event TokenWithdrawn(address indexed owner, uint256 amount);
+interface IERC20 {
+    function transfer(address recipient, uint256 amount) external returns (bool);
+    function balanceOf(address account) external view returns (uint256);
 }
+
+contract BowwwSwap {
+    address public owner;
+    IERC20  public bowwwToken;
+    uint256 public rate = 369;
+
+    constructor(address _bowwwToken) {
+        owner      = msg.sender;
+        bowwwToken = IERC20(_bowwwToken);
+    }
+
+    receive() external payable {
+        buyBowww();
+    }
+
+    function buyBowww() public payable {
+        require(msg.value > 0, "Send some MATIC");
+        uint256 amountToSend = msg.value * rate;
+        require(
+            bowwwToken.balanceOf(address(this)) >= amountToSend, 
+            "Not enough BOWWW in contract"
+        );
+        bowwwToken.transfer(msg.sender, amountToSend);
+    }
+
+    function withdrawMatic() external {
+        require(msg.sender == owner, "Only owner");
+        payable(owner).transfer(address(this).balance);
+    }
+
+    function withdrawTokens() external {
+        require(msg.sender == owner, "Only owner");
+        uint256 balance = bowwwToken.balanceOf(address(this));
+        bowwwToken.transfer(owner, balance);
+    }
+
+    function updateRate(uint256 newRate) external {
+        require(msg.sender == owner, "Only owner");
+        rate = newRate;
+    }
+}
+
