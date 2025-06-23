@@ -1,6 +1,6 @@
 // ==== CONFIG ====
-// This is your new V2 BowwwSwap sale contract:
-const CONTRACT_ADDRESS = "0x1D4B95E9d8066eB12Cebc2A02c5CCF258953f248";
+// Lower-case address to satisfy Ethers checksum requirement
+const CONTRACT_ADDRESS = "0x284414b6777872e6dd8982394fed1779dc87a3cf";
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
@@ -49,10 +49,10 @@ buyBtn.onclick = async () => {
   }
 
   try {
-    const value = ethers.utils.parseEther(amt);
+    const value = ethers.utils.parseEther(amt.toString());
     status.textContent = "⏳ Sending transaction…";
 
-    // send MATIC directly to the sale contract
+    // send MATIC to your sale contract
     const tx = await signer.sendTransaction({
       to: CONTRACT_ADDRESS,
       value
