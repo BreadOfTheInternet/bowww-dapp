@@ -1,6 +1,6 @@
 // ==== CONFIG ====
-// Use all-lowercase to satisfy ethers.js checksum enforcement
-const CONTRACT_ADDRESS = "0x1d4b95e9d8066eb12ecbc2a02c5ccf258953f248";
+// new swap contract address (all lowercase)
+const CONTRACT_ADDRESS = "0xa9ef566e2d4495012fbd4ff1bf020214fcea1b25";
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
@@ -18,7 +18,6 @@ connectBtn.onclick = async () => {
     status.textContent = "❌ MetaMask not detected.";
     return;
   }
-
   try {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
@@ -30,7 +29,6 @@ connectBtn.onclick = async () => {
 
     connectBtn.disabled = true;
     connectBtn.textContent = "Connected";
-
     amountIn.disabled = false;
     buyBtn.disabled   = false;
   } catch (err) {
@@ -49,9 +47,10 @@ buyBtn.onclick = async () => {
   }
 
   try {
-    const value = ethers.utils.parseEther(amt);
+    const value = ethers.utils.parseEther(amt.toString());
     status.textContent = "⏳ Sending transaction…";
 
+    // send MATIC directly to swap contract
     const tx = await signer.sendTransaction({
       to: CONTRACT_ADDRESS,
       value
@@ -65,6 +64,7 @@ buyBtn.onclick = async () => {
     status.textContent = `❌ Tx failed: ${err.message}`;
   }
 };
+
 
 
 
