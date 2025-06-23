@@ -9,7 +9,7 @@ interface IERC20 {
 contract BowwwSwap {
     address public owner;
     IERC20  public bowwwToken;
-    uint256 public rate = 369;
+    uint256 public rate = 369; // 1 MATIC → 369 BOWWW
 
     constructor(address _bowwwToken) {
         owner      = msg.sender;
@@ -20,30 +20,44 @@ contract BowwwSwap {
         buyBowww();
     }
 
+    /// @notice Buy BOWWW with MATIC and forward MATIC to owner
     function buyBowww() public payable {
         require(msg.value > 0, "Send some MATIC");
         uint256 amountToSend = msg.value * rate;
+
         require(
-            bowwwToken.balanceOf(address(this)) >= amountToSend, 
+            bowwwToken.balanceOf(address(this)) >= amountToSend,
             "Not enough BOWWW in contract"
         );
-        bowwwToken.transfer(msg.sender, amountToSend);
+
+        // 1) Transfer BOWWW tokens to buyer
+        bool sent = bowwwToken.transfer(msg.sender, amountToSend);
+        require(sent, "Token transfer failed");
+
+        // 2) Forward the MATIC to the owner immediately
+        (bool ok, ) = payable(owner).call{ value: msg.value }("");
+        require(ok, "Failed to forward MATIC");
     }
 
+    /// @notice Withdraw any stuck MATIC (should never hold any now)
     function withdrawMatic() external {
         require(msg.sender == owner, "Only owner");
         payable(owner).transfer(address(this).balance);
     }
 
+    /// @notice Withdraw any leftover BOWWW tokens
     function withdrawTokens() external {
         require(msg.sender == owner, "Only owner");
         uint256 balance = bowwwToken.balanceOf(address(this));
+        require(balance > 0, "No tokens to withdraw");
         bowwwToken.transfer(owner, balance);
     }
 
+    /// @notice Update the swap rate (tokens per MATIC)
     function updateRate(uint256 newRate) external {
         require(msg.sender == owner, "Only owner");
         rate = newRate;
     }
 }
+
 
