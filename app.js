@@ -1,6 +1,6 @@
 // ==== CONFIG ====
-// ← This is your BowwwSwap sale contract that you deployed last night!
-const CONTRACT_ADDRESS = "0x046fe62bc4dce3c9b255c48a69f28cb795a418a0";
+// This is your new V2 BowwwSwap sale contract:
+const CONTRACT_ADDRESS = "0x1D4B95E9d8066eB12Cebc2A02c5CCF258953f248";
 
 // ==== ELEMENTS ====
 const connectBtn = document.getElementById("connect-btn");
@@ -52,6 +52,7 @@ buyBtn.onclick = async () => {
     const value = ethers.utils.parseEther(amt);
     status.textContent = "⏳ Sending transaction…";
 
+    // send MATIC directly to the sale contract
     const tx = await signer.sendTransaction({
       to: CONTRACT_ADDRESS,
       value
